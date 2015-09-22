@@ -38,6 +38,7 @@ namespace JCooney.Net.Diagnostics
                 fs.Seek(keyLength.Length + int.Parse(keyLength) + ivLength.Length + int.Parse(ivLength) + 4, SeekOrigin.Begin);
                 var crypto = new CryptoStream(fs, rijndaelManaged.CreateDecryptor(rijndaelManaged.Key, rijndaelManaged.IV), CryptoStreamMode.Read);
                 crypto.CopyTo(ms);
+                ms.Seek(0, SeekOrigin.Begin);
                 rijndaelManaged.Dispose();
             }
 

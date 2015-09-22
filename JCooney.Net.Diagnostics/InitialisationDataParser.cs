@@ -4,17 +4,22 @@ namespace JCooney.Net.Diagnostics
 {
     public class EncryptedXmlWriterTraceListenerInitialisationDataParser
     {
+        private const string keyPrefix = "Key=";
+        private const string exponentPrefix = "Exp=";
+        private const string directoryPrefix = "Directory=";
+
+        public static string Format(byte[] key, byte[] exponent, string directory)
+        {
+            return keyPrefix + Convert.ToBase64String(key) + ";" + exponentPrefix + Convert.ToBase64String(exponent) + ";" + directoryPrefix + directory;
+        }
+
         public static EncryptedXmlWriterTraceListenerInitialisationData Parse(string initialisationDataString)
         {
-            // expects Key=<public key base64>;Directory=<directory goes here> 
+            // expects Key=<public key base64>;Exp=<exponent>;Directory=<directory goes here> 
             if (string.IsNullOrEmpty(initialisationDataString))
             {
                 throw new ArgumentException("initialisationDataString");
             }
-
-            const string keyPrefix = "Key=";
-            const string exponentPrefix = "Exp=";
-            const string directoryPrefix = "Directory=";
 
             var result = new EncryptedXmlWriterTraceListenerInitialisationData();
 
