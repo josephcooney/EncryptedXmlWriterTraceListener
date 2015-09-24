@@ -15,17 +15,46 @@ namespace TestDecrypter
 
         private void decryptButton_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(privateKeyTextbox.Text))
+            {
+                MessageBox.Show("Please choose a private key");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(fileNameTextbox.Text))
+            {
+                MessageBox.Show("Please choose a file to decrypt");
+                return;
+            }
+
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
             RSA.FromXmlString(privateKeyTextbox.Text);
             var info = RSA.ExportParameters(true);
 
-            var decrypter = new EncryptedXmlTextWriterDecrypter();
+            var decrypter = new EncryptedXmlWriterDecrypter();
             var decryptedStream = decrypter.Decrypt(info, fileNameTextbox.Text);
             decryptedStream.Seek(0, SeekOrigin.Begin);
-            using (var reader = new StreamReader(decryptedStream))
+
+            var randomOutFileName = fileNameTextbox.Text + Guid.NewGuid() + ".xml";
+
+
+            using (var outFileStream = new FileStream(randomOutFileName, FileMode.CreateNew))
             {
-                var content = reader.ReadToEnd();
-                System.Diagnostics.Trace.WriteLine(content);
+                decryptedStream.CopyTo(outFileStream);
+                outFileStream.Flush();
+            }
+            MessageBox.Show("Wrote output to:\n\n" + randomOutFileName, "Decrypted File", MessageBoxButtons.OK);
+        }
+
+        private void fileBrowseButton_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new OpenFileDialog())
+            {
+                var result = dlg.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    fileNameTextbox.Text = dlg.FileName;
+                }
             }
         }
     }

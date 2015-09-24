@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncryptedXmlTextWriterDecrypter.cs" />
-    <Compile Include="EncryptedXmlTextWriterTraceListener.cs" />
+    <Compile Include="EncryptedXmlWriterTraceListener.cs" />
     <Compile Include="InitialisationDataParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

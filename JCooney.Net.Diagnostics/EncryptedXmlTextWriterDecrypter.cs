@@ -5,7 +5,7 @@ using System.Text;
 
 namespace JCooney.Net.Diagnostics
 {
-    public class EncryptedXmlTextWriterDecrypter
+    public class EncryptedXmlWriterDecrypter
     {
         public Stream Decrypt(RSAParameters privateKey, string fileName)
         {

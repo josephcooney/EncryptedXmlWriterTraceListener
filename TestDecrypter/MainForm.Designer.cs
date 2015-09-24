@@ -56,6 +56,7 @@
             this.fileBrowseButton.TabIndex = 1;
             this.fileBrowseButton.Text = "...";
             this.fileBrowseButton.UseVisualStyleBackColor = true;
+            this.fileBrowseButton.Click += new System.EventHandler(this.fileBrowseButton_Click);
             // 
             // fileNameTextbox
             // 
@@ -95,7 +96,7 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Enter Key Xml";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -106,7 +107,7 @@
             this.Controls.Add(this.fileNameTextbox);
             this.Controls.Add(this.fileBrowseButton);
             this.Controls.Add(this.decryptButton);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Test Decrypter";
             this.ResumeLayout(false);
             this.PerformLayout();
